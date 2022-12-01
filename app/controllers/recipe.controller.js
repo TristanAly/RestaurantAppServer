@@ -1,19 +1,19 @@
 const { ingredientRecipe } = require('../config/db.config.js');
 const db = require('../config/db.config.js');
-const env = require('../config/env.js');
+// const env = require('../config/env.js');
  
 const Recipe = db.recipe;
  
 // Post a Recipe
 exports.create = (request, response) => { 
  // Save to MySQL database
- Recipe.create({  
-    name: request.body.name,
-    image: request.body.image,
-    category: request.body.category,
-    price_range: request.body.price_range,
-    description: request.body.description,
-    managerId: request.body.managerId
+Recipe.create({  
+      name: request.body.name,
+      image: request.body.image,
+      category: request.body.category,
+      price_range: request.body.price_range,
+      description: request.body.description,
+      managerId: request.body.managerId
    //  ingredientId: request.body.ingredientId 
  }).then(recipe => { 
  response.send(recipe);
