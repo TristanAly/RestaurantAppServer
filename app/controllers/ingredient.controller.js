@@ -18,7 +18,7 @@ exports.create = (request, response) => {
 // FETCH all Ingredients
 exports.findAll = (req, response) => {
  Ingredient.findAll({
-  include: ["recipe", "ingredient_recipe"]
+  // include: ["ingredient_recipe"]
  }).then(ingredient => {
    // Send all ingredients to Client
    response.send(ingredient);

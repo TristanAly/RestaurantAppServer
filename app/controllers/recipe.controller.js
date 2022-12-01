@@ -32,8 +32,9 @@ exports.findAll = (request, response) => {
 // Find a Recipe by Id
 exports.findByPk = (request, response) => { 
  Recipe.findByPk(request.params.recipeId, {
-  include: ["user"]
+  include: ["manager", "ingredients"] //deleted USER? added "manager", "ingredients"
  }).then(recipe => {
+   console.log("Creted")
   response.send(recipe);
  })
 };
