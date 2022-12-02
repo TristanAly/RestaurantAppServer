@@ -1,9 +1,10 @@
 module.exports = function(app) {
-
+    const { authJwt } = require("../middleware")
     const manager = require('../controllers/manager.controller.js');
 
+
     // Create a new manager
-    app.post('/api/managers', manager.create);
+    app.post('/api/managers', [authJwt.verifyToken, authJwt.isRestoOrDev],  manager.create);
 
     // Retrieve all manager
     app.get('/api/managers', manager.findAll);

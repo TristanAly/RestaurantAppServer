@@ -9,7 +9,7 @@ exports.create = (request, response) => {
     Manager.create({  
         name: request.body.name,
         image: request.body.image,
-        restaurant: request.body.restaurantId
+        userId: request.userId
     }).then(manager => { 
     // Send created manager to client
     response.send(manager);
@@ -19,7 +19,7 @@ exports.create = (request, response) => {
 // FETCH all Managers
 exports.findAll = (request, response) => {
         Manager.findAll({
-    include: ["restaurant"]
+    include: ["user", "restaurant"]
     }).then(managers => {
     // Send all managers to Client
     response.send(managers);

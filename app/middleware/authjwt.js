@@ -49,8 +49,8 @@ isResto = (req, res, next) => {
     User.findByPk(req.userId).then(user => {
         user.getRoles().then(roles => {
         for (let i = 0; i < roles.length; i++) {
-            if (roles[i].name === "business") {
-                req.role = "business"
+            if (roles[i].name === "resto") {
+                req.role = "resto"
             next();
             return;
             }
@@ -67,8 +67,8 @@ isRestoOrDev = (req, res, next) => {
     User.findByPk(req.userId).then(user => {
         user.getRoles().then(roles => {
             for (let i = 0; i < roles.length; i++) {
-                if (roles[i].name === "business") {
-                    req.role = "business"
+                if (roles[i].name === "resto") {
+                    req.role = "resto"
                 next();
                 return;
                 }

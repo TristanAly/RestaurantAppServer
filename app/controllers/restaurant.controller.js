@@ -1,3 +1,4 @@
+const { manager } = require('../config/db.config.js');
 const db = require('../config/db.config.js');
 // const env = require('../config/env.js');
 
@@ -6,6 +7,9 @@ const Restaurant = db.restaurant;
 exports.create = (request, response) => { 
     Restaurant.create({  
         name: request.body.name,
+        image: request.body.image,
+        address: request.body.address,
+        managerId: request.body.managerId
     }).then(restaurant => { 
     response.send(restaurant);
     });
@@ -14,7 +18,7 @@ exports.create = (request, response) => {
 // FETCH all Restaurants
 exports.findAll = (req, response) => {
     Restaurant.findAll({
-        include: ["Recipe"]
+        // include: ["recipe"]
     }).then(restaurant => {
         response.send(restaurant);
     });

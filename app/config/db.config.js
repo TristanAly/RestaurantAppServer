@@ -40,6 +40,8 @@ db.restaurant= require("../models/restaurant.model")(sequelize, Sequelize);
 db.recipe = require("../models/recipe.model")(sequelize, Sequelize);
 db.recipeIngredient = require("../models/ingredient.recipe.model")(sequelize, Sequelize);
 db.ingredients = require("../models/ingredient.model")(sequelize, Sequelize);
+db.recipeRestaurant = require("../models/recipe.restaurant.model")(sequelize, Sequelize);
+
 
 db.role.belongsToMany(db.users, {
     through: "user_roles",
@@ -59,23 +61,48 @@ db.manager.belongsTo(db.users,{
     as: "user"
 })
 
-db.restaurant.belongsToMany(db.manager, {
-    through: "manager_restaurants",
-    foreignKey: "restaurantId",
-    otherKey: "managerId"
+// db.restaurant.belongsToMany(db.manager, {
+//     through: "manager_restaurant",
+//     foreignKey: "restaurantId",
+//     otherKey: "managerId"
+// });
+
+// db.manager.belongsToMany(db.restaurant, {
+//     through: "manager_restaurant",
+//     foreignKey: "managerId",
+//     otherKey: "restaurantId"
+// });
+
+// db.manager.hasMany(db.recipe, {as: "recipe"});
+// db.recipe.belongsTo(db.recipe,{
+//     foreignKey: "managerId",
+//     as: "manager"
+// })
+
+// Manager - Restaurant
+db.manager.hasMany(db.restaurant, { as: "restaurant"});
+db.restaurant.belongsTo(db.manager, { 
+  foreignKey: "managerId",
+  as: "manager"
 });
 
-db.manager.belongsToMany(db.restaurant, {
-    through: "manager_restaurants",
-    foreignKey: "managerId",
-    otherKey: "restaurantId"
+// Restaurant - Recipe
+db.restaurant.belongsToMany(db.recipe, {
+    through: "recipeRestaurant"
 });
 
-db.manager.hasMany(db.recipe, {as: "recipe"});
-db.recipe.belongsTo(db.recipe,{
-    foreignKey: "managerId",
-    as: "manager"
-})
+db.recipe.belongsToMany(db.ingredients, {
+    through: "recipeRestaurant"
+});
+
+db.restaurant.hasMany(db.recipe)
+db.recipe.belongsTo(db.restaurant)
+
+db.recipe.hasMany(db.restaurant)
+db.restaurant.belongsTo(db.recipe)
+
+
+// Recipe - Ingredient
 db.ingredients.belongsToMany(db.recipe, {
     through: "recipeIngredients"
 });
@@ -90,6 +117,8 @@ db.recipeIngredient.belongsTo(db.ingredients)
 db.recipe.hasMany(db.recipeIngredient)
 db.recipeIngredient.belongsTo(db.recipe)
 
-db.ROLES = ["user", "business", "dev"];
+
+// Roles
+db.ROLES = ["user", "resto", "dev"];
 
 module.exports = db;
