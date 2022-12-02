@@ -10,23 +10,27 @@ module.exports = function(app) {
         next();
     });
 
+    // routes for public content
     app.get("/api/all", controller.allAccess);
 
+    // routes for user content
     app.get(
         "/api/user/",
         [authJwt.verifyToken],
         controller.userBoard
     );
 
+    // routes for moderator content
     app.get(
-        "/api/restaurant",
-        [authJwt.verifyToken, authJwt.isResto],
-        controller.restoBoard
+        "/api/business",
+        [authJwt.verifyToken, authJwt.isRestoOrDev],
+        controller.businessBoard
     );
 
+    // routes for admin content (everything)
     app.get(
         "/api/developper",
-        [authJwt.verifyToken, authJwt.isRestoOrDev],
+        [authJwt.verifyToken, authJwt.isDev],
         controller.devBoard
     );
     app.delete(

@@ -1,15 +1,16 @@
 // const { manager } = require("../config/db.config");
 const db = require("../config/db.config");
 const User = db.users;
-const Message = db.message;
+const Restaurant = db.restaurant;
+const bonDecommand = db.bonDecommands;
 
 exports.allAccess = (req, res) => {
     res.status(200).send("Public Content.");
 };
 
 exports.userBoard = (req, res) => {
-    Message.findAll().then(users => {
-        res.send(users);
+    Restaurant.findAll().then(restaurants => {
+        res.send(restaurants);
     });
 };
 
@@ -28,8 +29,8 @@ exports.devBoardDelete = (req, res) => {
     });
 };
 
-exports.restoBoard = (req, res) => {
-    User.findAll().then(users => {
-        res.send(users);
+exports.businessBoard = (req, res) => {
+    bonDecommand.findAll().then(bons => {
+        res.send(bons);
     });
-}; 
+};

@@ -24,14 +24,13 @@ exports.signup = (req, res) => {
                 }
             }
             }).then(roles => {
-            user.setRoles(roles).then(() => {
-                res.send({ message: "User was registered successfully!" });
-            });
+                user.setRoles(roles).then(() => {
+                    res.send({ message: "User was registered successfully !"});
+                });
             });
         } else {
-            // user role = 1
-            user.setRoles([0]).then(() => {
-            res.send({ message: "User was registered successfully!" });
+            user.setRoles([1]).then(() => {
+                res.send({ message: "User was registered successfully !"});
             });
         }
     })
