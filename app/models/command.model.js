@@ -16,11 +16,11 @@ module.exports = (sequelize, Sequelize) => {
             unique: false
         },
         date: {
-            type: Sequelize.STRING,
+            type: Sequelize.DATE,
             allowNull: false
         },
         hour: {
-            type: Sequelize.STRING,
+            type: Sequelize.HOUR,
             allowNull: false
         }
     });
