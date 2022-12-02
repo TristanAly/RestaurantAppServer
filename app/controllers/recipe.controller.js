@@ -11,7 +11,7 @@ Recipe.create({
       category: request.body.category,
       price_range: request.body.price_range,
       description: request.body.description,
-      managerId: request.body.managerId
+      restaurantId: request.body.restaurantId
     //  ingredientId: request.body.ingredientId 
    }).then(recipe => { 
       response.send(recipe);
@@ -21,7 +21,7 @@ Recipe.create({
 // FETCH all Recipes
 exports.findAll = (request, response) => {
    Recipe.findAll({
-      include: ["manager", "ingredients"]
+      include: ["restaurant", "ingredients"]
    }).then(recipe => {
       response.send(recipe);
    })

@@ -18,7 +18,7 @@ exports.create = (request, response) => {
 // FETCH all Restaurants
 exports.findAll = (req, response) => {
     Restaurant.findAll({
-        // include: ["recipe"]
+        include: ["recipe"]
     }).then(restaurant => {
         response.send(restaurant);
     });

@@ -2,7 +2,7 @@ const { recipe: ingredient } = require('../config/db.config.js');
 const db = require('../config/db.config.js');
 // const env = require('../config/env.js');
 
-const Ingredient = db.ingredient;
+const Ingredient = db.ingredients;
 
 // Post a Ingredient
 exports.create = (request, response) => { 

@@ -41,7 +41,7 @@ db.recipe = require("../models/recipe.model")(sequelize, Sequelize);
 db.recipeIngredient = require("../models/ingredient.recipe.model")(sequelize, Sequelize);
 db.ingredients = require("../models/ingredient.model")(sequelize, Sequelize);
 db.recipeRestaurant = require("../models/recipe.restaurant.model")(sequelize, Sequelize);
-
+db.command = require("../models/command.model")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.users, {
     through: "user_roles",
@@ -95,28 +95,50 @@ db.recipe.belongsToMany(db.ingredients, {
     through: "recipeRestaurant"
 });
 
-db.restaurant.hasMany(db.recipe)
-db.recipe.belongsTo(db.restaurant)
+db.restaurant.hasMany(db.recipeRestaurant)
+db.recipeRestaurant.belongsTo(db.restaurant)
 
-db.recipe.hasMany(db.restaurant)
-db.restaurant.belongsTo(db.recipe)
+db.recipe.hasMany(db.recipeRestaurant)
+db.recipeRestaurant.belongsTo(db.recipe)
 
 
-// Recipe - Ingredient
+// Recipe - Ingredient 
 db.ingredients.belongsToMany(db.recipe, {
-    through: "recipeIngredients"
+    through: "ingredient_recipe",
+    foreignKey: "ingredientId",
+    otherKey: "recipeId"
+  });
+  
+  db.recipe.belongsToMany(db.ingredients, {
+    through: "ingredient_recipe",
+    foreignKey: "recipeId",
+    otherKey: "ingredientId"
+  });
+  
+  db.ingredients.hasMany(db.recipeIngredient)
+  db.recipeIngredient.belongsTo(db.ingredients)
+  
+  db.recipe.hasMany(db.recipeIngredient)
+  db.recipeIngredient.belongsTo(db.recipe)
+
+// Command / Restaurant 
+db.users.belongsToMany(db.restaurant, {
+    through: "command",
+    foreignKey: "userId",
+    otherKey: "restaurantId"
 });
 
-db.recipe.belongsToMany(db.ingredients, {
-    through: "recipeIngredients"
+db.restaurant.belongsToMany(db.users, {
+    through: "command",
+    foreignKey: "restaurantId",
+    otherKey: "userId"
 });
 
-db.ingredients.hasMany(db.recipeIngredient)
-db.recipeIngredient.belongsTo(db.ingredients)
+db.users.hasMany(db.command)
+db.command.belongsTo(db.users)
 
-db.recipe.hasMany(db.recipeIngredient)
-db.recipeIngredient.belongsTo(db.recipe)
-
+db.restaurant.hasMany(db.command)
+db.command.belongsTo(db.restaurant)
 
 // Roles
 db.ROLES = ["user", "resto", "dev"];

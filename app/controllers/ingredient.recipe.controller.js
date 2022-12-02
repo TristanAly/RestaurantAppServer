@@ -1,18 +1,17 @@
 const db = require('../config/db.config.js');
 
-const IngredientRecipe = db.ingredientRecipe;
+const IngredientRecipe = db.recipeIngredient;
 
 // Post a IngredientRecipe
 exports.create = (request, response) => { 
   // Save to MySQL database
-  IngredientRecipe.create({
-    recipeId: request.body.recipeId,
-    ingredientId: request.body.ingredientId
-  }).then(ingredientRecipe => { 
-  // Send created ingredientRecipe to client
-  response.send(ingredientRecipe);
-  });
-};
+ IngredientRecipe.create({  
+        recipeId: request.body.recipeId,
+        ingredientId: request.body.ingredientId 
+    }).then(ingredientRecipe => { 
+       response.send(ingredientRecipe);
+    });
+ };
 
 // FETCH all IngredientRecipe
 exports.findAll = (request, response) => {

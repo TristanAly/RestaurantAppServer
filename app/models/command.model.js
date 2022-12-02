@@ -5,8 +5,8 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             unique: true
         },
-        nomberpersonne: {
-            type: Sequelize.INT,
+        nbperson: {
+            type: Sequelize.INTEGER,
             allowNull: false,
             unique: false
         },
@@ -16,7 +16,11 @@ module.exports = (sequelize, Sequelize) => {
             unique: false
         },
         date: {
-            type: Sequelize.DATE,
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        hour: {
+            type: Sequelize.STRING,
             allowNull: false
         }
     });

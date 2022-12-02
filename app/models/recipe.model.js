@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
           unique: false
       },
       price_range: {
-          type: DataTypes.STRING,
+          type: DataTypes.FLOAT,
           allowNull: false,
           unique: false
       },

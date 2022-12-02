@@ -2,7 +2,7 @@
 const db = require("../config/db.config");
 const User = db.users;
 const Restaurant = db.restaurant;
-const bonDecommand = db.bonDecommands;
+const command = db.command;
 
 exports.allAccess = (req, res) => {
     res.status(200).send("Public Content.");
@@ -30,7 +30,7 @@ exports.devBoardDelete = (req, res) => {
 };
 
 exports.businessBoard = (req, res) => {
-    bonDecommand.findAll().then(bons => {
+    command.findAll().then(bons => {
         res.send(bons);
     });
 };
