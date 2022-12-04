@@ -41,7 +41,7 @@ exports.update = (request, response) => {
     Manager.update( { 
         name: request.body.name,
         image: request.body.image,
-        restaurant: request.body.restaurantId
+        userId: request.userId
     }, 
     { where: {id: request.params.managerId} }
     ).then(() => {

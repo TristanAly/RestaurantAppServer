@@ -87,19 +87,28 @@ db.restaurant.belongsTo(db.manager, {
 });
 
 // Restaurant - Recipe
-db.restaurant.belongsToMany(db.recipe, {
-    through: "recipeRestaurant"
+db.restaurant.hasMany(db.recipe, { as: "recipe"});
+db.recipe.belongsTo(db.restaurant, { 
+  foreignKey: "restaurantId",
+  as: "restaurant"
 });
+// db.restaurant.belongsToMany(db.recipe, {
+//     through: "recipeRestaurant",
+//     foreignKey: "restaurantId",
+//     otherKey: "recipeId"
+// });
 
-db.recipe.belongsToMany(db.ingredients, {
-    through: "recipeRestaurant"
-});
+// db.recipe.belongsToMany(db.ingredients, {
+//     through: "recipeRestaurant",
+//     foreignKey: "recipeId",
+//     otherKey: "restaurantId"
+// });
 
-db.restaurant.hasMany(db.recipeRestaurant)
-db.recipeRestaurant.belongsTo(db.restaurant)
+// db.restaurant.hasMany(db.recipeRestaurant)
+// db.recipeRestaurant.belongsTo(db.restaurant)
 
-db.recipe.hasMany(db.recipeRestaurant)
-db.recipeRestaurant.belongsTo(db.recipe)
+// db.recipe.hasMany(db.recipeRestaurant)
+// db.recipeRestaurant.belongsTo(db.recipe)
 
 
 // Recipe - Ingredient 

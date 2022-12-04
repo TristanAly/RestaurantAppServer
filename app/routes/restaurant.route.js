@@ -9,9 +9,9 @@ module.exports = function(app) {
     app.get('/api/restaurant', restaurant.findAll);
 
     // Retrieve a single Recipe by Id
-    app.get('/api/restaurants/:restaurantId', restaurant.findByPk);
+    app.get('/api/restaurant/:restaurantId', restaurant.findByPk);
 
     // Update a Recipe with Id
-    app.put('/api/restaurants/:restaurantId', restaurant.update);;
+    app.put('/api/restaurant/:restaurantId', restaurant.update);;
 
 }

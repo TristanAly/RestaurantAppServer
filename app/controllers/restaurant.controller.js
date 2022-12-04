@@ -18,7 +18,7 @@ exports.create = (request, response) => {
 // FETCH all Restaurants
 exports.findAll = (req, response) => {
     Restaurant.findAll({
-        include: ["recipe"]
+        include: ["manager","recipe"]
     }).then(restaurant => {
         response.send(restaurant);
     });
@@ -26,9 +26,11 @@ exports.findAll = (req, response) => {
 
 // Find a Restaurant by Id
 exports.findByPk = (request, response) => { 
-    Restaurant.findByPk(request.params.restaurantId).then(restaurant => {
+    Restaurant.findByPk(request.params.restaurantId, {
+        include: ["manager","recipe"]
+    }).then(restaurant => {
         response.send(restaurant);
-    })
+    });
 };
 
 exports.update = (request, response) => {
