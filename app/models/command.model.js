@@ -1,5 +1,10 @@
 module.exports = (sequelize, Sequelize) => {
     const Command = sequelize.define("command", {
+        id:{
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
         table: {
             type: Sequelize.STRING,
             allowNull: false,
@@ -16,13 +21,21 @@ module.exports = (sequelize, Sequelize) => {
             unique: false
         },
         date: {
-            type: Sequelize.DATE,
-            allowNull: false
+            type: Sequelize.STRING,
+            allowNull: true
         },
         hour: {
-            type: Sequelize.DATE,
-            allowNull: false
+            type: Sequelize.STRING,
+            allowNull: true
         }
+        // userId: {
+        //     type: Sequelize.INTEGER,
+        //     Foreignkey: true
+        // },
+        // restaurantId: {
+        //     type: Sequelize.INTEGER,
+        //     Foreignkey: true
+        // },
     });
     
     return Command;

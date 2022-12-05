@@ -92,25 +92,6 @@ db.recipe.belongsTo(db.restaurant, {
   foreignKey: "restaurantId",
   as: "restaurant"
 });
-// db.restaurant.belongsToMany(db.recipe, {
-//     through: "recipeRestaurant",
-//     foreignKey: "restaurantId",
-//     otherKey: "recipeId"
-// });
-
-// db.recipe.belongsToMany(db.ingredients, {
-//     through: "recipeRestaurant",
-//     foreignKey: "recipeId",
-//     otherKey: "restaurantId"
-// });
-
-// db.restaurant.hasMany(db.recipeRestaurant)
-// db.recipeRestaurant.belongsTo(db.restaurant)
-
-// db.recipe.hasMany(db.recipeRestaurant)
-// db.recipeRestaurant.belongsTo(db.recipe)
-
-
 // Recipe - Ingredient 
 db.ingredients.belongsToMany(db.recipe, {
     through: "ingredient_recipe",
@@ -148,6 +129,17 @@ db.command.belongsTo(db.users)
 
 db.restaurant.hasMany(db.command)
 db.command.belongsTo(db.restaurant)
+
+// db.command.hasMany(db.users, { as: "user"});
+// db.users.belongsTo(db.command, { 
+//   foreignKey: "commandId",
+//   as: "command"
+// });
+// db.command.hasMany(db.restaurant, { as: "restaurant"});
+// db.restaurant.belongsTo(db.command, { 
+//   foreignKey: "commandId",
+//   as: "command"
+// });
 
 // Roles
 db.ROLES = ["user", "resto", "dev"];

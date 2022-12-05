@@ -4,7 +4,7 @@ module.exports = function(app) {
     const command = require('../controllers/command.controller.js');
 
     // Create a new Ingredient
-    app.post('/api/commands',  [authJwt.verifyToken ] ,command.create);
+    app.post('/api/commands',  [authJwt.verifyToken] ,command.create);
 
     // Retrieve all Ingredient
     app.get('/api/commands', command.findAll);

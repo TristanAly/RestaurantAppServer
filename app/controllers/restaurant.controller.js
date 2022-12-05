@@ -9,6 +9,7 @@ exports.create = (request, response) => {
         name: request.body.name,
         image: request.body.image,
         address: request.body.address,
+        description: request.body.description,
         managerId: request.body.managerId
     }).then(restaurant => { 
     response.send(restaurant);

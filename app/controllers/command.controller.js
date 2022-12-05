@@ -1,3 +1,4 @@
+const { recipe } = require('../config/db.config.js');
 const db = require('../config/db.config.js');
 
 const Command = db.command;
