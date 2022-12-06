@@ -1,9 +1,11 @@
+const authJwt = require('../middleware/authJwt.js');
+
 module.exports = function(app) {
 
     const favourite = require('../controllers/favourite.controller.js');
 
     // Create a new favourite
-    app.post('/api/favourite', favourite.create);
+    app.post('/api/favourite', [authJwt.verifyToken], favourite.create);
 
     // Retrieve all favourite
     app.get('/api/favourite', favourite.findAll);

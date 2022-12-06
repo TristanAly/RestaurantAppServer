@@ -6,8 +6,8 @@ const Favourite = db.favourite;
 // Post a Ingredient
 exports.create = (request, response) => { 
     // Save to MySQL database
-    Favourite.create({  
-        userId: request.body.userId,
+    Favourite.create({
+        userId: request.userId,
         restaurantId: request.body.restaurantId
     }).then(Favourite => { 
     // Send created Favourite to client
@@ -36,9 +36,10 @@ exports.findByPk = (request, response) => {
 exports.update = (request, response) => {
     const id = request.params.FavouriteId;
     Favourite.update( { 
-        name: request.body.name
+        userId: request.userId,
+        restaurantId: request.body.restaurantId
     }, 
-    { where: {id: request.params.FavouriteId} }
+    { where: {id: request.params.favouriteId} }
     ).then(() => {
     response.status(200).send({ 
         message: 'updated successfully a Favourite with id = ' + id });
@@ -47,7 +48,7 @@ exports.update = (request, response) => {
 
 // Delete a Favourite by Id
 exports.delete = (request, response) => {
-    const id = request.params.FavouriteId;
+    const id = request.params.favouriteId;
     Favourite.destroy({
         where: { id: id }
     }).then(() => {
