@@ -36,8 +36,10 @@ require('./app/routes/restaurant.route')(app);
 require('./app/routes/recipe.route')(app);
 require('./app/routes/ingredient.route')(app);
 require('./app/routes/ingredient.recipe.route')(app);
-require('./app/routes/recipe.restaurant.route')(app);
+require('./app/routes/recipe.command.route')(app);
 require('./app/routes/command.route')(app);
+require('./app/routes/ingredient.command.route')(app);
+require('./app/routes/favourite.route')(app);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
@@ -61,10 +63,10 @@ function initial() {
 }
 
     // execution de sequelize et création tables si 1ere fois
-    // db.sequelize.sync();
-db.sequelize.sync({
-    force: true
-}).then(() => {
-    console.log('Drop and resync Db');
-    initial();
-});
+    db.sequelize.sync();
+// db.sequelize.sync({
+//     force: true
+// }).then(() => {
+//     console.log('Drop and resync Db');
+//     initial();
+// });

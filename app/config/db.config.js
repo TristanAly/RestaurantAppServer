@@ -40,8 +40,10 @@ db.restaurant= require("../models/restaurant.model")(sequelize, Sequelize);
 db.recipe = require("../models/recipe.model")(sequelize, Sequelize);
 db.recipeIngredient = require("../models/ingredient.recipe.model")(sequelize, Sequelize);
 db.ingredients = require("../models/ingredient.model")(sequelize, Sequelize);
-db.recipeRestaurant = require("../models/recipe.restaurant.model")(sequelize, Sequelize);
+db.recipeCommand = require("../models/recipe.command.model")(sequelize, Sequelize);
 db.command = require("../models/command.model")(sequelize, Sequelize);
+db.ingredientCommand = require("../models/ingredient.command.model")(sequelize, Sequelize);
+db.favourite = require("../models/favourite.model")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.users, {
     through: "user_roles",
@@ -60,24 +62,6 @@ db.manager.belongsTo(db.users,{
     foreignKey: "userId",
     as: "user"
 })
-
-// db.restaurant.belongsToMany(db.manager, {
-//     through: "manager_restaurant",
-//     foreignKey: "restaurantId",
-//     otherKey: "managerId"
-// });
-
-// db.manager.belongsToMany(db.restaurant, {
-//     through: "manager_restaurant",
-//     foreignKey: "managerId",
-//     otherKey: "restaurantId"
-// });
-
-// db.manager.hasMany(db.recipe, {as: "recipe"});
-// db.recipe.belongsTo(db.recipe,{
-//     foreignKey: "managerId",
-//     as: "manager"
-// })
 
 // Manager - Restaurant
 db.manager.hasMany(db.restaurant, { as: "restaurant"});
@@ -130,16 +114,70 @@ db.command.belongsTo(db.users)
 db.restaurant.hasMany(db.command)
 db.command.belongsTo(db.restaurant)
 
-// db.command.hasMany(db.users, { as: "user"});
-// db.users.belongsTo(db.command, { 
+// Recipe - Command
+// creer un tableau de recipe
+// db.command.hasMany(db.recipe, { as: "recipe"});
+// db.recipe.belongsTo(db.command, { 
 //   foreignKey: "commandId",
-//   as: "command"
+//   as: "recipe"
 // });
-// db.command.hasMany(db.restaurant, { as: "restaurant"});
-// db.restaurant.belongsTo(db.command, { 
-//   foreignKey: "commandId",
-//   as: "command"
-// });
+db.command.belongsToMany(db.recipe, {
+    through: "recipe_command",
+    foreignKey: "commandId",
+    otherKey: "recipeId"
+  });
+  
+  db.recipe.belongsToMany(db.command, {
+    through: "recipe_command",
+    foreignKey: "recipeId",
+    otherKey: "commandId"
+  });
+  
+  db.command.hasMany(db.recipeCommand)
+  db.recipeCommand.belongsTo(db.command)
+  
+  db.recipe.hasMany(db.recipeCommand)
+  db.recipeCommand.belongsTo(db.recipe)
+
+
+  // ingredient - Command
+  db.ingredients.belongsToMany(db.command, {
+    through: "ingredient_command",
+    foreignKey: "ingredientId",
+    otherKey: "commandId"
+});
+
+db.command.belongsToMany( db.ingredients, {
+    through: "ingredient_command",
+    foreignKey: "commandId",
+    otherKey: "ingredientId"
+});
+db.ingredients.hasMany(db.ingredientCommand)
+db.ingredientCommand.belongsTo(db.ingredients)
+
+db.command.hasMany(db.ingredientCommand)
+db.ingredientCommand.belongsTo(db.command)
+
+
+  // Restaurant - Users
+  db.users.belongsToMany(db.restaurant, {
+    through: "favourite",
+    foreignKey: "userId",
+    otherKey: "restaurantId"
+  });
+  
+  db.restaurant.belongsToMany(db.users, {
+    through: "favourite",
+    foreignKey: "restaurantId",
+    otherKey: "userId"
+  });
+  
+  db.users.hasMany(db.favourite)
+  db.favourite.belongsTo(db.users)
+  
+  db.restaurant.hasMany(db.favourite)
+  db.favourite.belongsTo(db.restaurant)
+
 
 // Roles
 db.ROLES = ["user", "resto", "dev"];

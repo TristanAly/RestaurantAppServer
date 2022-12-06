@@ -28,14 +28,6 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: true
         }
-        // userId: {
-        //     type: Sequelize.INTEGER,
-        //     Foreignkey: true
-        // },
-        // restaurantId: {
-        //     type: Sequelize.INTEGER,
-        //     Foreignkey: true
-        // },
     });
     
     return Command;

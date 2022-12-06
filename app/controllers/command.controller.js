@@ -2,7 +2,7 @@ const { recipe } = require('../config/db.config.js');
 const db = require('../config/db.config.js');
 
 const Command = db.command;
-
+const Op = db.Sequelize.Op;
 // Post a Command
 exports.create = (request, response) => { 
  // Save to MySQL database
@@ -13,7 +13,10 @@ Command.create({
     date: request.body.date,
     hour: request.body.hour,
     userId: request.userId,
-    restaurantId: request.body.restaurantId
+    restaurantId: request.body.restaurantId,
+    ingredientCommandId: {
+      [Op.or]: request.body.ingredientCommandId
+      }
    }).then(command => { 
       response.send(command);
    });
@@ -22,7 +25,7 @@ Command.create({
 // FETCH all Commands
 exports.findAll = (request, response) => {
     Command.findAll({
-      include: ["restaurant", "user"]
+      include: ["restaurant", "user", "recipes", "ingredients"]
    }).then(command => {
       response.send(command);
    })
@@ -31,7 +34,7 @@ exports.findAll = (request, response) => {
 // Find a Command by Id
 exports.findByPk = (request, response) => { 
     Command.findByPk(request.params.commandId, {
-      include: ["restaurant", "user"] 
+      include: ["restaurant", "user", "recipes"] 
    }).then(command => {
       console.log("Creted")
       response.send(command);
