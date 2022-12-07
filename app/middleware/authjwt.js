@@ -80,19 +80,20 @@ isRestoOrDev = (req, res, next) => {
                 }
             }
 
-        if (roles) {
-            next();
-            return;
-        } else {
-            res.status(403).send({
-                message: "Require Role!"
-            });
-        }
-        });
-        // next();
-        // res.status(403).send({
-        //     message: "Require Role!"
+        // if (roles) {
+        //     next();
+        //     return;
+        // } else {
+        //     res.status(403).send({
+        //         message: "Require Role!"
+        //     });
+        // }
         // });
+        // next();
+        res.status(403).send({
+            message: "Require Role!"
+            });
+        });
     });
 };
 

@@ -12,10 +12,16 @@ module.exports = function(app) {
 
     // routes for public content
     app.get("/api/all", controller.allAccess);
+//
+    app.get(
+        "/api/user/",
+        [authJwt.verifyToken],
+        controller.findByPk
+    );
 
     // routes for user content
     app.get(
-        "/api/user/",
+        "/api/users/",
         [authJwt.verifyToken],
         controller.userBoard
     );

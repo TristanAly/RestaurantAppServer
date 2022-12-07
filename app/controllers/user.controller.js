@@ -9,11 +9,17 @@ exports.allAccess = (req, res) => {
 };
 
 exports.userBoard = (req, res) => {
-    Restaurant.findAll().then(restaurants => {
-        res.send(restaurants);
+    User.findAll().then(users => {
+        res.send(users);
     });
 };
-
+exports.findByPk = (request, response) => { 
+    User.findOne({
+        where: { id: request.userId }
+    }).then(user => {
+        response.send(user);
+    });
+};
 exports.devBoard = (req, res) => {
     User.findAll().then(users => {
         res.send(users);
